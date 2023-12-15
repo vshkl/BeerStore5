@@ -12,6 +12,7 @@ detekt = "1.23.4"
 detekt-compose = "0.0.26"
 store-five = "5.0.0-beta02"
 atomicfu = "0.21.0"
+sqldelight = "2.0.1"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -31,8 +32,10 @@ material3 = { group = "androidx.compose.material3", name = "material3" }
 detekt-compose = { group = "com.twitter.compose.rules", name = "detekt", version.ref = "detekt-compose" }
 store-five = { group = "org.mobilenativefoundation.store", name = "store5", version.ref = "store-five" }
 kotlinx-atomicfu = { group = "org.jetbrains.kotlinx", name = "atomicfu", version.ref = "atomicfu" }
+sqldelight-android-driver = { group = "app.cash.sqldelight", name = "android-driver", version.ref = "sqldelight" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }

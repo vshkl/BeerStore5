@@ -3,6 +3,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.sqldelight)
 }
 
 android {
@@ -51,6 +52,14 @@ android {
     }
 }
 
+sqldelight {
+    databases {
+        create("Database") {
+            packageName.set("com.vshkl.beerstore5")
+        }
+    }
+}
+
 dependencies {
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
@@ -62,6 +71,7 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.kotlinx.atomicfu)
     implementation(libs.store.five)
+    implementation(libs.sqldelight.android.driver)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

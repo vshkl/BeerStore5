@@ -1,0 +1,25 @@
+CREATE TABLE beerListEntity (
+    id INTEGER PRIMARY KEY NOT NULL,
+    name TEXT NOT NULL,
+    tagline TEXT,
+    imageUrl TEXT,
+    page INTEGER NOT NULL
+);
+
+insert:
+INSERT OR REPLACE
+INTO beerListEntity (id, name, tagline, imageUrl, page)
+VALUES (?, ?, ?, ?, ?);
+
+selectAll:
+SELECT *
+FROM beerListEntity;
+
+deleteAll:
+DELETE
+FROM beerListEntity;
+
+deleteByPage:
+DELETE
+FROM beerListEntity
+WHERE page = ?;

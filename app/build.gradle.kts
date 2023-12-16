@@ -44,7 +44,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
     packaging {
         resources {
@@ -73,9 +73,11 @@ dependencies {
     implementation(libs.kotlinx.atomicfu)
     implementation(libs.store.five)
     implementation(libs.sqldelight.android.driver)
+    implementation(libs.sqldelight.coroutines.extensions)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.ktor.client.android)
     implementation(libs.ktor.client.serialization)
+    implementation(libs.ktor.client.resources)
     implementation(libs.ktor.client.logging)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

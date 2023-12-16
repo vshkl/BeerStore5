@@ -2,4 +2,6 @@
     <string name="app_name">Beer Store 5</string>
 
     <string name="cd_beer_image">Beer image</string>
+
+    <string name="title_beers_list">Catalogue</string>
 </resources>

@@ -26,9 +26,9 @@ fun BeersListCell(
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.Start,
         modifier = modifier
+            .clickable { onClick(beer) }
             .padding(horizontal = 16.dp, vertical = 8.dp)
-            .fillMaxWidth()
-            .clickable { onClick(beer) },
+            .fillMaxWidth(),
     ) {
         ImageThumbnail(imageUrl = beer.imageUrl)
         Column(

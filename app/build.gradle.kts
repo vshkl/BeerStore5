@@ -3,6 +3,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.sqldelight)
 }
 
@@ -72,6 +73,10 @@ dependencies {
     implementation(libs.kotlinx.atomicfu)
     implementation(libs.store.five)
     implementation(libs.sqldelight.android.driver)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.ktor.client.android)
+    implementation(libs.ktor.client.serialization)
+    implementation(libs.ktor.client.logging)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

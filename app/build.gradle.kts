@@ -1,6 +1,7 @@
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 
 plugins {
+    alias(libs.plugins.kotlin.ksp)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.kotlinx.serialization)
@@ -70,6 +71,7 @@ dependencies {
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
+    implementation(libs.material.icons.extended)
     implementation(libs.kotlinx.atomicfu)
     implementation(libs.store.five)
     implementation(libs.sqldelight.android.driver)
@@ -79,6 +81,9 @@ dependencies {
     implementation(libs.ktor.client.serialization)
     implementation(libs.ktor.client.resources)
     implementation(libs.ktor.client.logging)
+    implementation(libs.compose.destinations.animations.core)
+    implementation(libs.coil.compose)
+    ksp(libs.compose.destinations.ksp)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

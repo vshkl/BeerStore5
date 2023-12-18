@@ -10,8 +10,10 @@ class BeersServiceImpl(
 ) : BeersService {
 
     override suspend fun getBeers(page: Int, perPage: Int): List<BeerDto> {
+        val maybePage = page.takeIf { it > 0 }
+
         return client
-            .get(BeersResource(page, perPage))
+            .get(BeersResource(page = maybePage, perPage))
             .body<List<BeerDto>>()
     }
 

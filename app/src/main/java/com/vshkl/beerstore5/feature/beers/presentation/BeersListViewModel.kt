@@ -20,7 +20,7 @@ class BeersListViewModel(
 
     init {
         viewModelScope.launch {
-            beersStore.stream(StoreReadRequest.cached(key = 1, refresh = true))
+            beersStore.stream(StoreReadRequest.cached(key = 0, refresh = true))
                 .collect { response ->
                     println(response)
                     when (response) {

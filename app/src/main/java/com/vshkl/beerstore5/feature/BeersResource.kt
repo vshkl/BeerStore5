@@ -4,8 +4,8 @@ import io.ktor.resources.Resource
 
 @Resource("beers")
 class BeersResource(
-    val page: Int = 0,
-    val perPage: Int = 20,
+    val page: Int? = null,
+    val perPage: Int? = null,
 ) {
 
     @Resource("{id}")

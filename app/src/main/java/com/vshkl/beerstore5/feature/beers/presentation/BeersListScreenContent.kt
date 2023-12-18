@@ -14,6 +14,7 @@ fun BeersListScreenContent(
     beers: List<Beer>,
     modifier: Modifier = Modifier,
     onBeerClick: (Beer) -> Unit = {},
+    onLoadMore: () -> Unit = {},
 ) {
     Surface(
         color = MaterialTheme.colorScheme.background,
@@ -22,6 +23,7 @@ fun BeersListScreenContent(
         BeersList(
             beers = beers,
             onCellClick = onBeerClick,
+            onLoadMore = onLoadMore,
         )
     }
 }

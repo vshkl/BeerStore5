@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import org.mobilenativefoundation.store.store5.Store
 import org.mobilenativefoundation.store.store5.StoreReadRequest
 import org.mobilenativefoundation.store.store5.StoreReadResponse
+import org.mobilenativefoundation.store.store5.impl.extensions.fresh
 
 class BeersListViewModel(
     private val beersStore: Store<Int, List<Beer>>,
@@ -18,21 +19,28 @@ class BeersListViewModel(
     private val _beers: MutableStateFlow<List<Beer>> = MutableStateFlow(listOf())
     val beers: StateFlow<List<Beer>> = _beers.asStateFlow()
 
+    private var currentKey = 0
+
     init {
         viewModelScope.launch {
-            beersStore.stream(StoreReadRequest.cached(key = 0, refresh = true))
+            beersStore.stream(StoreReadRequest.cached(key = currentKey, refresh = currentKey == 0))
                 .collect { response ->
-                    println(response)
                     when (response) {
                         is StoreReadResponse.Loading -> {}
                         is StoreReadResponse.Data -> {
                             _beers.value = response.value
                         }
-                        is StoreReadResponse.Error.Exception -> {}
-                        is StoreReadResponse.Error.Message -> {}
-                        is StoreReadResponse.NoNewData -> {}
+                        is StoreReadResponse.Error -> {}
+                        is StoreReadResponse.NoNewData -> Unit
                     }
                 }
+        }
+    }
+
+    fun loadMore() {
+        currentKey++
+        viewModelScope.launch {
+            beersStore.fresh(currentKey)
         }
     }
 }

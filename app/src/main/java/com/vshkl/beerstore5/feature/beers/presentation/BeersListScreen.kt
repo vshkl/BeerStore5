@@ -15,29 +15,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.vshkl.beerstore5.R
-import com.vshkl.beerstore5.feature.beers.Beer
 import com.vshkl.beerstore5.util.viewModel
-
-private val dummyBeersList = listOf(
-    Beer(
-        id = 191,
-        name = "Interstellar",
-        tagline = "2013 Prototype Red Rye IPA.",
-        imageUrl = "https://images.punkapi.com/v2/191.png",
-    ),
-    Beer(
-        id = 192,
-        name = "Punk IPA 2007 - 2010",
-        tagline = "Post Modern Classic. Spiky. Tropical. Hoppy.",
-        imageUrl = "https://images.punkapi.com/v2/192.png",
-    ),
-    Beer(
-        id = 193,
-        name = "Blitz Berliner Weisse",
-        tagline = "Berliner Fruit Beer.",
-        imageUrl = "https://images.punkapi.com/v2/keg.png",
-    ),
-)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @RootNavGraph(start = true)
@@ -63,6 +41,7 @@ fun BeersListScreen(
         BeersListScreenContent(
             beers = viewModel.beers.collectAsState().value,
             onBeerClick = { beer -> println(beer) },
+            onLoadMore = { viewModel.loadMore() },
             modifier = Modifier
                 .padding(innerPadding),
         )

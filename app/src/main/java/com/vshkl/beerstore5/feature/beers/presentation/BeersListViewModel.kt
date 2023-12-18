@@ -4,8 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vshkl.beerstore5.feature.beers.Beer
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.mobilenativefoundation.store.store5.Store
 import org.mobilenativefoundation.store.store5.StoreReadRequest
@@ -17,11 +15,14 @@ class BeersListViewModel(
     private val beersStore: Store<Int, List<Beer>>,
 ) : ViewModel() {
 
-    private val _beers: MutableStateFlow<List<Beer>> = MutableStateFlow(listOf())
-    val beers: StateFlow<List<Beer>> = _beers.asStateFlow()
+    var beers: MutableStateFlow<List<Beer>> = MutableStateFlow(listOf())
+        private set
 
-    private val _loading: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    val loading: StateFlow<Boolean> = _loading.asStateFlow()
+    var loading: MutableStateFlow<Boolean> = MutableStateFlow(false)
+        private set
+
+    var refreshing: MutableStateFlow<Boolean> = MutableStateFlow(false)
+        private set
 
     private var currentKey = 0
     private var endReached = false
@@ -32,18 +33,20 @@ class BeersListViewModel(
                 .collect { response ->
                     when (response) {
                         is StoreReadResponse.Loading -> {
-                            _loading.value = true
+                            loading.value = true
                         }
                         is StoreReadResponse.Data -> {
                             if (response.origin is StoreReadResponseOrigin.Fetcher) {
-                                _loading.value = false
+                                loading.value = false
+                                refreshing.value = false
                             }
-                            _beers.value = response.value
+                            beers.value = response.value
                             endReached = response.value.isEmpty()
                         }
                         is StoreReadResponse.Error -> {
                             if (response.origin is StoreReadResponseOrigin.Fetcher) {
-                                _loading.value = false
+                                loading.value = false
+                                refreshing.value = false
                             }
                         }
                         is StoreReadResponse.NoNewData -> Unit
@@ -65,7 +68,7 @@ class BeersListViewModel(
         currentKey = 0
         endReached = false
         viewModelScope.launch {
-            _loading.value = true
+            refreshing.value = true
             beersStore.fresh(currentKey)
         }
     }

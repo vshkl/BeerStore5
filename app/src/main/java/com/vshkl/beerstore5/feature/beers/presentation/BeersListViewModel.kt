@@ -20,6 +20,7 @@ class BeersListViewModel(
     val beers: StateFlow<List<Beer>> = _beers.asStateFlow()
 
     private var currentKey = 0
+    private var endReached = false
 
     init {
         viewModelScope.launch {
@@ -29,6 +30,7 @@ class BeersListViewModel(
                         is StoreReadResponse.Loading -> {}
                         is StoreReadResponse.Data -> {
                             _beers.value = response.value
+                            endReached = response.value.isEmpty()
                         }
                         is StoreReadResponse.Error -> {}
                         is StoreReadResponse.NoNewData -> Unit
@@ -38,9 +40,11 @@ class BeersListViewModel(
     }
 
     fun loadMore() {
-        currentKey++
-        viewModelScope.launch {
-            beersStore.fresh(currentKey)
+        if (!endReached) {
+            currentKey++
+            viewModelScope.launch {
+                beersStore.fresh(currentKey)
+            }
         }
     }
 }

@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import org.mobilenativefoundation.store.store5.Store
 import org.mobilenativefoundation.store.store5.StoreReadRequest
 import org.mobilenativefoundation.store.store5.StoreReadResponse
+import org.mobilenativefoundation.store.store5.StoreReadResponseOrigin
 import org.mobilenativefoundation.store.store5.impl.extensions.fresh
 
 class BeersListViewModel(
@@ -19,6 +20,9 @@ class BeersListViewModel(
     private val _beers: MutableStateFlow<List<Beer>> = MutableStateFlow(listOf())
     val beers: StateFlow<List<Beer>> = _beers.asStateFlow()
 
+    private val _loading: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val loading: StateFlow<Boolean> = _loading.asStateFlow()
+
     private var currentKey = 0
     private var endReached = false
 
@@ -27,12 +31,21 @@ class BeersListViewModel(
             beersStore.stream(StoreReadRequest.cached(key = currentKey, refresh = currentKey == 0))
                 .collect { response ->
                     when (response) {
-                        is StoreReadResponse.Loading -> {}
+                        is StoreReadResponse.Loading -> {
+                            _loading.value = true
+                        }
                         is StoreReadResponse.Data -> {
+                            if (response.origin is StoreReadResponseOrigin.Fetcher) {
+                                _loading.value = false
+                            }
                             _beers.value = response.value
                             endReached = response.value.isEmpty()
                         }
-                        is StoreReadResponse.Error -> {}
+                        is StoreReadResponse.Error -> {
+                            if (response.origin is StoreReadResponseOrigin.Fetcher) {
+                                _loading.value = false
+                            }
+                        }
                         is StoreReadResponse.NoNewData -> Unit
                     }
                 }
@@ -45,6 +58,14 @@ class BeersListViewModel(
             viewModelScope.launch {
                 beersStore.fresh(currentKey)
             }
+        }
+    }
+
+    fun refresh() {
+        currentKey = 0
+        endReached = false
+        viewModelScope.launch {
+            beersStore.fresh(currentKey)
         }
     }
 }

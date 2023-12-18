@@ -40,6 +40,7 @@ fun BeersListScreen(
     ) { innerPadding ->
         BeersListScreenContent(
             beers = viewModel.beers.collectAsState().value,
+            loading = viewModel.loading.collectAsState().value,
             onBeerClick = { beer -> println(beer) },
             onLoadMore = { viewModel.loadMore() },
             modifier = Modifier

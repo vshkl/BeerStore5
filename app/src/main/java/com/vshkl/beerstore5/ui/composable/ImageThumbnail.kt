@@ -26,7 +26,7 @@ fun ImageThumbnail(
     AsyncImage(
         model = imageUrl,
         contentDescription = stringResource(id = R.string.cd_beer_image),
-        contentScale = ContentScale.Crop,
+        contentScale = ContentScale.Fit,
         placeholder = fallbackPainter,
         error = errorPainter,
         fallback = fallbackPainter,

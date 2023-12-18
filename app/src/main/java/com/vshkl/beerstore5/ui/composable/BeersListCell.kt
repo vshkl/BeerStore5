@@ -1,7 +1,10 @@
 package com.vshkl.beerstore5.ui.composable
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -30,7 +33,17 @@ fun BeersListCell(
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .fillMaxWidth(),
     ) {
-        ImageThumbnail(imageUrl = beer.imageUrl)
+        Box(
+            modifier = Modifier
+                .background(
+                    MaterialTheme.colorScheme.secondaryContainer,
+                    MaterialTheme.shapes.medium,
+                )
+                .border(1.dp, MaterialTheme.colorScheme.secondary, MaterialTheme.shapes.medium)
+                .padding(4.dp)
+        ) {
+            ImageThumbnail(imageUrl = beer.imageUrl)
+        }
         Column(
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.SpaceBetween,
@@ -51,7 +64,7 @@ fun BeersListCell(
         }
         Text(
             text = "#${beer.id}",
-            style = MaterialTheme.typography.labelLarge,
+            style = MaterialTheme.typography.labelMedium,
         )
     }
 }

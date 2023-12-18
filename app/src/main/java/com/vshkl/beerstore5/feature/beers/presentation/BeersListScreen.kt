@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -41,8 +42,10 @@ fun BeersListScreen(
         BeersListScreenContent(
             beers = viewModel.beers.collectAsState().value,
             loading = viewModel.loading.collectAsState().value,
+            refreshing = viewModel.loading.collectAsState().value,
             onBeerClick = { beer -> println(beer) },
             onLoadMore = { viewModel.loadMore() },
+            onRefresh = { viewModel.refresh() },
             modifier = Modifier
                 .padding(innerPadding),
         )

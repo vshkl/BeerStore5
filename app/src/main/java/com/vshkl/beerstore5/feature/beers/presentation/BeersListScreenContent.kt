@@ -18,9 +18,11 @@ import com.vshkl.beerstore5.ui.composable.BeersList
 fun BeersListScreenContent(
     beers: List<Beer>,
     loading: Boolean,
+    refreshing: Boolean,
     modifier: Modifier = Modifier,
     onBeerClick: (Beer) -> Unit = {},
     onLoadMore: () -> Unit = {},
+    onRefresh: () -> Unit = {},
 ) {
     Surface(
         color = MaterialTheme.colorScheme.background,
@@ -29,8 +31,10 @@ fun BeersListScreenContent(
         Box {
             BeersList(
                 beers = beers,
+                refreshing = refreshing,
                 onCellClick = onBeerClick,
                 onLoadMore = onLoadMore,
+                onRefresh = onRefresh,
             )
 
             if (loading) {
@@ -51,6 +55,7 @@ fun BeersListScreenContent(
 fun BeersListScreenContentPreview() {
     BeersListScreenContent(
         loading = true,
+        refreshing = false,
         beers = listOf(
             Beer(
                 id = 191,

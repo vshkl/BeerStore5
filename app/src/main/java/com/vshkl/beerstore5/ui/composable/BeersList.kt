@@ -1,15 +1,21 @@
 package com.vshkl.beerstore5.ui.composable
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.pulltorefresh.PullToRefreshContainer
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshotFlow
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vshkl.beerstore5.feature.beers.Beer
@@ -17,13 +23,17 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 
 private const val LoadMoreThreshold = 5
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BeersList(
     beers: List<Beer>,
+    refreshing: Boolean,
     modifier: Modifier = Modifier,
     onCellClick: (Beer) -> Unit = {},
     onLoadMore: () -> Unit = {},
+    onRefresh: () -> Unit = {},
 ) {
+    val pullToRefreshState = rememberPullToRefreshState()
     val listState = rememberLazyListState()
     val shouldLoadMore = remember {
         derivedStateOf {
@@ -40,20 +50,41 @@ fun BeersList(
             .collect { onLoadMore() }
     }
 
-    LazyColumn(
-        state = listState,
-        contentPadding = PaddingValues(vertical = 8.dp),
-        modifier = modifier,
-    ) {
-        items(
-            items = beers,
-            key = Beer::id,
-        ) { beer ->
-            BeersListCell(
-                beer = beer,
-                onClick = onCellClick,
-            )
+    LaunchedEffect(pullToRefreshState) {
+        snapshotFlow { pullToRefreshState.isRefreshing }
+            .distinctUntilChanged()
+            .collect { isRefreshing ->
+                if (isRefreshing) {
+                    onRefresh()
+                }
+            }
+    }
+
+    if (!refreshing) {
+        LaunchedEffect(pullToRefreshState) {
+            pullToRefreshState.endRefresh()
         }
+    }
+
+    Box(modifier = modifier.nestedScroll(pullToRefreshState.nestedScrollConnection)) {
+        LazyColumn(
+            state = listState,
+            contentPadding = PaddingValues(vertical = 8.dp),
+        ) {
+            items(
+                items = beers,
+                key = Beer::id,
+            ) { beer ->
+                BeersListCell(
+                    beer = beer,
+                    onClick = onCellClick,
+                )
+            }
+        }
+        PullToRefreshContainer(
+            state = pullToRefreshState,
+            modifier = Modifier.align(Alignment.TopCenter),
+        )
     }
 }
 
@@ -61,6 +92,7 @@ fun BeersList(
 @Composable
 fun BeersListPreview() {
     BeersList(
+        refreshing = true,
         beers = listOf(
             Beer(
                 id = 191,

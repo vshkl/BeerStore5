@@ -65,6 +65,7 @@ class BeersListViewModel(
         currentKey = 0
         endReached = false
         viewModelScope.launch {
+            _loading.value = true
             beersStore.fresh(currentKey)
         }
     }

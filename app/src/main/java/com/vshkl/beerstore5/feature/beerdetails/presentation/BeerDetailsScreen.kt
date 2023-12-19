@@ -8,16 +8,17 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import com.ramcosta.composedestinations.annotation.Destination
-import com.vshkl.beerstore5.R
+import com.vshkl.beerstore5.util.viewModel
 
 @ExperimentalMaterial3Api
 @Destination(navArgsDelegate = BeerDetailsScreenNavArgs::class)
 @Composable
 fun BeerDetailsScreen(
     navArgs: BeerDetailsScreenNavArgs,
+    viewModel: BeerDetailsViewModel = viewModel(),
 ) {
     Scaffold(
         topBar = {
@@ -27,13 +28,14 @@ fun BeerDetailsScreen(
                     titleContentColor = MaterialTheme.colorScheme.primary,
                 ),
                 title = {
-                    Text(stringResource(id = R.string.title_beers_list))
+                    Text(navArgs.name)
                 }
             )
         },
     ) { innerPadding ->
-        Text(
-            text = "${navArgs.id} ${navArgs.name}",
+        BeerDetailsScreenContent(
+            beerDetailsUiState = viewModel.beerDetailsUiState.collectAsState().value,
+            onRefresh = { viewModel.refresh() },
             modifier = Modifier
                 .padding(innerPadding),
         )

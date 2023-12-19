@@ -3,7 +3,10 @@ package com.vshkl.beerstore5
 import androidx.lifecycle.SavedStateHandle
 import app.cash.sqldelight.ColumnAdapter
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
-import com.vshkl.beerstore5.feature.beer.local.BeerDetailsEntity
+import com.vshkl.beerstore5.feature.beerdetails.BeerDetailsStoreProvider
+import com.vshkl.beerstore5.feature.beerdetails.local.BeerDetailsDaoImpl
+import com.vshkl.beerstore5.feature.beerdetails.local.BeerDetailsEntity
+import com.vshkl.beerstore5.feature.beerdetails.presentation.BeerDetailsViewModel
 import com.vshkl.beerstore5.feature.beers.BeersStoreProvider
 import com.vshkl.beerstore5.feature.beers.local.BeersDaoImpl
 import com.vshkl.beerstore5.feature.beers.presentation.BeersListViewModel
@@ -17,7 +20,6 @@ import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.resources.Resources
 import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
-import kotlinx.datetime.LocalDate
 import kotlinx.serialization.json.Json
 import timber.log.Timber
 
@@ -60,13 +62,6 @@ class DependencyContainer(
                 "beerstore.db",
             ),
             beerDetailsEntityAdapter = BeerDetailsEntity.Adapter(
-                firstBrewedAdapter = object : ColumnAdapter<LocalDate, String> {
-                    override fun decode(databaseValue: String): LocalDate =
-                        LocalDate.parse(databaseValue)
-
-                    override fun encode(value: LocalDate): String =
-                        value.toString()
-                },
                 foodPairingAdapter = object : ColumnAdapter<List<String>, String> {
                     val separator = "|"
 
@@ -89,10 +84,20 @@ class DependencyContainer(
         )
     }
 
+    private val beerDetailsStoreProvider: BeerDetailsStoreProvider by lazy {
+        BeerDetailsStoreProvider(
+            beersService = BeersServiceImpl(httpClient),
+            beerDetailsDao = BeerDetailsDaoImpl(database.beerDetailsEntityQueries),
+        )
+    }
+
     @Suppress("UNCHECKED_CAST")
     fun <T> createViewModel(modelClass: Class<T>, handle: SavedStateHandle): T {
         return when (modelClass) {
-            BeersListViewModel::class.java -> BeersListViewModel(beersStoreProvider.provide())
+            BeersListViewModel::class.java ->
+                BeersListViewModel(beersStoreProvider.provide())
+            BeerDetailsViewModel::class.java ->
+                BeerDetailsViewModel(handle, beerDetailsStoreProvider.provide())
             else -> throw RuntimeException("Unknown view model $modelClass")
         } as T
     }

@@ -43,6 +43,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
@@ -85,6 +86,7 @@ dependencies {
     implementation(libs.ktor.client.logging)
     implementation(libs.compose.destinations.animations.core)
     implementation(libs.coil.compose)
+    implementation(libs.timber)
     ksp(libs.compose.destinations.ksp)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

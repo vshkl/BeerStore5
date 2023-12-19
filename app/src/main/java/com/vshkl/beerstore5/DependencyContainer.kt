@@ -1,7 +1,9 @@
 package com.vshkl.beerstore5
 
 import androidx.lifecycle.SavedStateHandle
+import app.cash.sqldelight.ColumnAdapter
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
+import com.vshkl.beerstore5.feature.beer.local.BeerDetailsEntity
 import com.vshkl.beerstore5.feature.beers.BeersStoreProvider
 import com.vshkl.beerstore5.feature.beers.local.BeersDaoImpl
 import com.vshkl.beerstore5.feature.beers.presentation.BeersListViewModel
@@ -15,6 +17,7 @@ import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.resources.Resources
 import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.datetime.LocalDate
 import kotlinx.serialization.json.Json
 import timber.log.Timber
 
@@ -55,6 +58,26 @@ class DependencyContainer(
                 Database.Schema,
                 activity.applicationContext,
                 "beerstore.db",
+            ),
+            beerDetailsEntityAdapter = BeerDetailsEntity.Adapter(
+                firstBrewedAdapter = object : ColumnAdapter<LocalDate, String> {
+                    override fun decode(databaseValue: String): LocalDate =
+                        LocalDate.parse(databaseValue)
+
+                    override fun encode(value: LocalDate): String =
+                        value.toString()
+                },
+                foodPairingAdapter = object : ColumnAdapter<List<String>, String> {
+                    val separator = "|"
+
+                    override fun decode(databaseValue: String): List<String> = when {
+                        databaseValue.isEmpty() -> listOf()
+                        else -> databaseValue.split(separator)
+                    }
+
+                    override fun encode(value: List<String>): String =
+                        value.joinToString(separator)
+                },
             )
         )
     }

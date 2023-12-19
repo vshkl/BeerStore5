@@ -1,29 +1,40 @@
+import kotlin.String;
+import kotlin.collections.List;
+import kotlinx.datetime.LocalDate;
+
 CREATE TABLE beerDetailsEntity (
     id INTEGER PRIMARY KEY NOT NULL,
     name TEXT NOT NULL,
     tagline TEXT,
     description TEXT,
+    firstBrewed TEXT AS LocalDate NOT NULL,
     imageUrl TEXT,
     abv REAL,
-    ibu REAL
+    ibu REAL,
+    ebc REAL,
+    srm REAL,
+    ph REAL,
+    attenuationLevel REAL,
+    foodPairing TEXT AS List<String> NOT NULL,
+    brewersTips TEXT
 );
 
 insert:
 INSERT OR REPLACE
-INTO beerDetailsEntity (id, name, tagline, description, imageUrl, abv, ibu)
-VALUES (?, ?, ?, ?, ?, ?, ?);
+INTO beerDetailsEntity (id, name, tagline, description, firstBrewed, imageUrl, abv, ibu, ebc, srm, ph, attenuationLevel, foodPairing, brewersTips)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
-select:
+selectAll:
 SELECT *
 FROM beerDetailsEntity
 WHERE id = ?;
 
-delete:
+deleteAll:
 DELETE
 FROM beerDetailsEntity
 WHERE id = ?;
 
-update:
-UPDATE beerDetailsEntity
-SET name = ?, tagline = ?, description = ?, imageUrl = ?, abv = ?, ibu = ?
+deleteById:
+DELETE
+FROM beerDetailsEntity
 WHERE id = ?;

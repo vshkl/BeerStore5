@@ -1,4 +1,4 @@
-package com.vshkl.beerstore5.feature
+package com.vshkl.beerstore5.feature.core.remote
 
 import io.ktor.resources.Resource
 import kotlinx.serialization.SerialName

@@ -1,6 +1,6 @@
-package com.vshkl.beerstore5.feature.beers.remote
+package com.vshkl.beerstore5.feature.core.remote
 
-import com.vshkl.beerstore5.feature.BeersResource
+import com.vshkl.beerstore5.feature.beers.remote.BeerDto
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.resources.get

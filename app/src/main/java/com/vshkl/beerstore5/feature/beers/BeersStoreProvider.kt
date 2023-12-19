@@ -1,9 +1,9 @@
 package com.vshkl.beerstore5.feature.beers
 
-import com.vshkl.beerstore5.feature.StoreProvider
+import com.vshkl.beerstore5.feature.core.StoreProvider
 import com.vshkl.beerstore5.feature.beers.local.BeersDao
 import com.vshkl.beerstore5.feature.beers.remote.BeerDto
-import com.vshkl.beerstore5.feature.beers.remote.BeersService
+import com.vshkl.beerstore5.feature.core.remote.BeersService
 import com.vshkl.beerstore5.feature.beers.remote.asBeer
 import org.mobilenativefoundation.store.store5.Fetcher
 import org.mobilenativefoundation.store.store5.SourceOfTruth

@@ -3,6 +3,7 @@ package com.vshkl.beerstore5.feature.beers.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vshkl.beerstore5.feature.beers.Beer
+import com.vshkl.beerstore5.feature.core.presentation.UiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.mobilenativefoundation.store.store5.ExperimentalStoreApi

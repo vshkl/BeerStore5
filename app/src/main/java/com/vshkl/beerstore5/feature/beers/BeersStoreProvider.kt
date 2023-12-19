@@ -20,7 +20,7 @@ class BeersStoreProvider(
             .from(
                 fetcher = Fetcher.of { page: Int ->
                     beersService
-                        .getBeers(page = page, perPage = 20)
+                        .getBeers(page = page, perPage = 40)
                         .map(BeerDto::asBeer)
                 },
                 sourceOfTruth = SourceOfTruth.of(

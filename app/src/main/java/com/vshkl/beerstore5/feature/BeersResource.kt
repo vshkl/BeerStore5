@@ -1,11 +1,12 @@
 package com.vshkl.beerstore5.feature
 
 import io.ktor.resources.Resource
+import kotlinx.serialization.SerialName
 
 @Resource("beers")
 class BeersResource(
     val page: Int? = null,
-    val perPage: Int? = null,
+    @SerialName("per_page") val perPage: Int? = null,
 ) {
 
     @Resource("{id}")

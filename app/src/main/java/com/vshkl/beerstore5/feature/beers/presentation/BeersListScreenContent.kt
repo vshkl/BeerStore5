@@ -16,9 +16,7 @@ import com.vshkl.beerstore5.ui.composable.BeersList
 
 @Composable
 fun BeersListScreenContent(
-    beers: List<Beer>,
-    loading: Boolean,
-    refreshing: Boolean,
+    beersListUiState: BeersListUiState,
     modifier: Modifier = Modifier,
     onBeerClick: (Beer) -> Unit = {},
     onLoadMore: () -> Unit = {},
@@ -30,14 +28,14 @@ fun BeersListScreenContent(
     ) {
         Box {
             BeersList(
-                beers = beers,
-                refreshing = refreshing,
+                beers = beersListUiState.beers,
+                refreshing = beersListUiState.state is UiState.Refreshing,
                 onCellClick = onBeerClick,
                 onLoadMore = onLoadMore,
                 onRefresh = onRefresh,
             )
 
-            if (loading) {
+            if (beersListUiState.state is UiState.Loading) {
                 LinearProgressIndicator(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -54,27 +52,28 @@ fun BeersListScreenContent(
 @Composable
 fun BeersListScreenContentPreview() {
     BeersListScreenContent(
-        loading = true,
-        refreshing = false,
-        beers = listOf(
-            Beer(
-                id = 191,
-                name = "Interstellar",
-                tagline = "2013 Prototype Red Rye IPA.",
-                imageUrl = "https://images.punkapi.com/v2/191.png",
-            ),
-            Beer(
-                id = 192,
-                name = "Punk IPA 2007 - 2010",
-                tagline = "Post Modern Classic. Spiky. Tropical. Hoppy.",
-                imageUrl = "https://images.punkapi.com/v2/192.png",
-            ),
-            Beer(
-                id = 193,
-                name = "Blitz Berliner Weisse",
-                tagline = "Berliner Fruit Beer.",
-                imageUrl = "https://images.punkapi.com/v2/keg.png",
-            ),
+        beersListUiState = BeersListUiState(
+            state = UiState.Data,
+            beers = listOf(
+                Beer(
+                    id = 191,
+                    name = "Interstellar",
+                    tagline = "2013 Prototype Red Rye IPA.",
+                    imageUrl = "https://images.punkapi.com/v2/191.png",
+                ),
+                Beer(
+                    id = 192,
+                    name = "Punk IPA 2007 - 2010",
+                    tagline = "Post Modern Classic. Spiky. Tropical. Hoppy.",
+                    imageUrl = "https://images.punkapi.com/v2/192.png",
+                ),
+                Beer(
+                    id = 193,
+                    name = "Blitz Berliner Weisse",
+                    tagline = "Berliner Fruit Beer.",
+                    imageUrl = "https://images.punkapi.com/v2/keg.png",
+                ),
+            )
         )
     )
 }

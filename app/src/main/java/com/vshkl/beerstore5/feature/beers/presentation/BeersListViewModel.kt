@@ -5,71 +5,105 @@ import androidx.lifecycle.viewModelScope
 import com.vshkl.beerstore5.feature.beers.Beer
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import org.mobilenativefoundation.store.store5.ExperimentalStoreApi
 import org.mobilenativefoundation.store.store5.Store
 import org.mobilenativefoundation.store.store5.StoreReadRequest
 import org.mobilenativefoundation.store.store5.StoreReadResponse
-import org.mobilenativefoundation.store.store5.StoreReadResponseOrigin
 import org.mobilenativefoundation.store.store5.impl.extensions.fresh
+import timber.log.Timber
 
+sealed class UiState {
+    data object Idle : UiState()
+    data object Loading : UiState()
+    data object Refreshing : UiState()
+    data object Data : UiState()
+    data object Error : UiState()
+}
+
+data class BeersListUiState(
+    val state: UiState = UiState.Idle,
+    val beers: List<Beer> = listOf(),
+    val page: Int = 0,
+    val endReached: Boolean = false,
+    val error: String = "",
+)
+
+@OptIn(ExperimentalStoreApi::class)
 class BeersListViewModel(
     private val beersStore: Store<Int, List<Beer>>,
 ) : ViewModel() {
 
-    var beers: MutableStateFlow<List<Beer>> = MutableStateFlow(listOf())
+    var beersListUiState: MutableStateFlow<BeersListUiState> = MutableStateFlow(BeersListUiState())
         private set
-
-    var loading: MutableStateFlow<Boolean> = MutableStateFlow(false)
-        private set
-
-    var refreshing: MutableStateFlow<Boolean> = MutableStateFlow(false)
-        private set
-
-    private var currentKey = 0
-    private var endReached = false
 
     init {
         viewModelScope.launch {
-            beersStore.stream(StoreReadRequest.cached(key = currentKey, refresh = currentKey == 0))
+            val key = beersListUiState.value.page
+
+            beersStore.stream(StoreReadRequest.cached(key = key, refresh = key == 0))
                 .collect { response ->
-                    when (response) {
-                        is StoreReadResponse.Loading -> {
-                            loading.value = true
-                        }
-                        is StoreReadResponse.Data -> {
-                            if (response.origin is StoreReadResponseOrigin.Fetcher) {
-                                loading.value = false
-                                refreshing.value = false
-                            }
-                            beers.value = response.value
-                            endReached = response.value.isEmpty()
-                        }
-                        is StoreReadResponse.Error -> {
-                            if (response.origin is StoreReadResponseOrigin.Fetcher) {
-                                loading.value = false
-                                refreshing.value = false
-                            }
-                        }
-                        is StoreReadResponse.NoNewData -> Unit
+                    beersListUiState.value = when (response) {
+                        is StoreReadResponse.Loading ->
+                            beersListUiState.value.copy(
+                                state = UiState.Loading,
+                                error = "",
+                            )
+                        is StoreReadResponse.Data ->
+                            beersListUiState.value.copy(
+                                state = UiState.Data,
+                                beers = response.value,
+                                endReached = response.value.isEmpty(),
+                                error = "",
+                            )
+                        is StoreReadResponse.Error ->
+                            beersListUiState.value.copy(
+                                state = UiState.Error,
+                                error = response.errorMessageOrNull() ?: "Unknown error",
+                            )
+                        is StoreReadResponse.NoNewData ->
+                            beersListUiState.value.copy(
+                                state = UiState.Data,
+                                endReached = true,
+                                error = "",
+                            )
                     }
                 }
         }
     }
 
     fun loadMore() {
-        if (!endReached) {
-            currentKey++
-            viewModelScope.launch {
-                beersStore.fresh(currentKey)
+        val nextPage = beersListUiState.value.page + 1
+
+        Timber.i("Load next page #$nextPage")
+
+        if (beersListUiState.value.endReached.not()) {
+            beersListUiState.value.copy(
+                state = UiState.Loading,
+                page = nextPage,
+                error = "",
+            ).run {
+                beersListUiState.value = this
+                viewModelScope.launch {
+                    beersStore.fresh(page)
+                }
             }
         }
     }
 
     fun refresh() {
-        currentKey = 0
-        endReached = false
-        viewModelScope.launch {
-            refreshing.value = true
-            beersStore.fresh(currentKey)
+        Timber.i("Refresh beers list")
+
+        beersListUiState.value.copy(
+            state = UiState.Refreshing,
+            page = 0,
+            endReached = false,
+            error = "",
+        ).run {
+            beersListUiState.value = this
+            viewModelScope.launch {
+                beersStore.clear()
+                beersStore.fresh(page)
+            }
         }
     }
 }

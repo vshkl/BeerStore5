@@ -39,9 +39,7 @@ fun BeersListScreen(
         },
     ) { innerPadding ->
         BeersListScreenContent(
-            beers = viewModel.beers.collectAsState().value,
-            loading = viewModel.loading.collectAsState().value,
-            refreshing = viewModel.refreshing.collectAsState().value,
+            beersListUiState = viewModel.beersListUiState.collectAsState().value,
             onBeerClick = { beer -> println(beer) },
             onLoadMore = { viewModel.loadMore() },
             onRefresh = { viewModel.refresh() },

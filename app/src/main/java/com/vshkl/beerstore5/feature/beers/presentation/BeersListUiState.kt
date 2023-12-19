@@ -1,6 +1,7 @@
 package com.vshkl.beerstore5.feature.beers.presentation
 
 import com.vshkl.beerstore5.feature.beers.Beer
+import com.vshkl.beerstore5.feature.core.presentation.UiState
 
 data class BeersListUiState(
     val state: UiState = UiState.Idle,
@@ -9,11 +10,3 @@ data class BeersListUiState(
     val endReached: Boolean = false,
     val error: String = "",
 )
-
-sealed class UiState {
-    data object Idle : UiState()
-    data object Loading : UiState()
-    data object Refreshing : UiState()
-    data object Data : UiState()
-    data object Error : UiState()
-}

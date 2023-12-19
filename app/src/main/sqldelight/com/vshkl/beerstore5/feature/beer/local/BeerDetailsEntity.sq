@@ -24,7 +24,7 @@ INSERT OR REPLACE
 INTO beerDetailsEntity (id, name, tagline, description, firstBrewed, imageUrl, abv, ibu, ebc, srm, ph, attenuationLevel, foodPairing, brewersTips)
 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
-selectAll:
+selectById:
 SELECT *
 FROM beerDetailsEntity
 WHERE id = ?;

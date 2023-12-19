@@ -12,22 +12,6 @@ import org.mobilenativefoundation.store.store5.StoreReadResponse
 import org.mobilenativefoundation.store.store5.impl.extensions.fresh
 import timber.log.Timber
 
-sealed class UiState {
-    data object Idle : UiState()
-    data object Loading : UiState()
-    data object Refreshing : UiState()
-    data object Data : UiState()
-    data object Error : UiState()
-}
-
-data class BeersListUiState(
-    val state: UiState = UiState.Idle,
-    val beers: List<Beer> = listOf(),
-    val page: Int = 0,
-    val endReached: Boolean = false,
-    val error: String = "",
-)
-
 @OptIn(ExperimentalStoreApi::class)
 class BeersListViewModel(
     private val beersStore: Store<Int, List<Beer>>,

@@ -87,6 +87,7 @@ dependencies {
     implementation(libs.compose.destinations.animations.core)
     implementation(libs.coil.compose)
     implementation(libs.timber)
+    implementation(libs.kotlinx.datatime)
     ksp(libs.compose.destinations.ksp)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

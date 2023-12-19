@@ -1,20 +1,20 @@
 package com.vshkl.beerstore5.feature.beerdetails.presentation
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vshkl.beerstore5.feature.beerdetails.BeerDetails
 import com.vshkl.beerstore5.feature.core.presentation.UiState
+import com.vshkl.beerstore5.ui.composable.BeerDetailsList
 
 @Composable
 fun BeerDetailsScreenContent(
@@ -27,25 +27,12 @@ fun BeerDetailsScreenContent(
         modifier = modifier.fillMaxSize(),
     ) {
         Box {
-            Column {
-                beerDetailsUiState.beerDetails?.let { beerDetails ->
-                    Text(text = "id:\n${beerDetails.id}")
-                    Text(text = "name:\n${beerDetails.name}")
-                    Text(text = "tagline:\n${beerDetails.tagline}")
-                    Text(text = "description:\n${beerDetails.description}")
-                    Text(text = "first brewed:\n${beerDetails.firstBrewed}")
-                    Text(text = "abv:\n${beerDetails.abv}")
-                    Text(text = "ibu:\n${beerDetails.ibu}")
-                    Text(text = "ebc:\n${beerDetails.ebc}")
-                    Text(text = "srm:\n${beerDetails.srm}")
-                    Text(text = "ph:\n${beerDetails.ph}")
-                    Text(text = "attenuation level:\n${beerDetails.attenuationLevel}")
-                    Text(text = "food pairing:")
-                    beerDetails.foodPairing.map {
-                        Text(text = it)
-                    }
-                    Text(text = "brewers tips:\n${beerDetails.brewersTips}")
-                }
+            beerDetailsUiState.beerDetails?.let { beerDetails ->
+                BeerDetailsList(
+                    beerDetails = beerDetails,
+                    modifier = Modifier
+                        .padding(16.dp),
+                )
             }
 
             if (beerDetailsUiState.state is UiState.Loading ||
@@ -94,7 +81,7 @@ fun BeerDetailsScreenContentPreview() {
                 brewersTips = "While it may surprise you, this version of Punk IPA isn't dry hopped " +
                         "but still packs a punch! To make the best of the aroma hops make sure they " +
                         "are fully submerged and add them just before knock out for an intense hop hit.",
-            )
+            ),
         ),
     )
 }

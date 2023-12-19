@@ -2,8 +2,6 @@ package com.vshkl.beerstore5.feature.beerdetails.local
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToOne
-import com.vshkl.beerstore5.feature.beer.local.BeerDetailsEntity
-import com.vshkl.beerstore5.feature.beer.local.BeerDetailsEntityQueries
 import com.vshkl.beerstore5.feature.beerdetails.BeerDetails
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

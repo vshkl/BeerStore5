@@ -1,6 +1,5 @@
 package com.vshkl.beerstore5.feature.beerdetails.local
 
-import com.vshkl.beerstore5.feature.beer.local.BeerDetailsEntity
 import com.vshkl.beerstore5.feature.beerdetails.BeerDetails
 
 fun BeerDetailsEntity.asBeerDetails() = BeerDetails(
@@ -9,7 +8,7 @@ fun BeerDetailsEntity.asBeerDetails() = BeerDetails(
     tagline = tagline.orEmpty(),
     description = description.orEmpty(),
     imageUrl = imageUrl.orEmpty(),
-    firstBrewed = firstBrewed,
+    firstBrewed = firstBrewed.orEmpty(),
     abv = abv ?: 0.0,
     ibu = ibu ?: 0.0,
     ebc = ebc ?: 0.0,

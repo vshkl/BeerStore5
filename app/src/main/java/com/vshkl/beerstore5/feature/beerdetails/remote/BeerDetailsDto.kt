@@ -1,7 +1,6 @@
 package com.vshkl.beerstore5.feature.beerdetails.remote
 
 import com.vshkl.beerstore5.feature.beerdetails.BeerDetails
-import kotlinx.datetime.LocalDate
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -12,7 +11,7 @@ data class BeerDetailsDto(
     val tagline: String = "",
     val description: String = "",
     val imageUrl: String = "",
-    @SerialName("first_brewed") val firstBrewed: LocalDate,
+    @SerialName("first_brewed") val firstBrewed: String,
     val abv: Double = 0.0,
     val ibu: Double = 0.0,
     val ebc: Double = 0.0,

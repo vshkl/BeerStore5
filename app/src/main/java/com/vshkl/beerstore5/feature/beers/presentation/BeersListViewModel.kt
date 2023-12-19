@@ -23,9 +23,11 @@ class BeersListViewModel(
 
     init {
         viewModelScope.launch {
-            val key = beersListUiState.value.page
+            val page = beersListUiState.value.page
 
-            beersStore.stream(StoreReadRequest.cached(key = key, refresh = key == 0))
+            Timber.i("Loading beers list for page: $page")
+
+            beersStore.stream(StoreReadRequest.cached(key = page, refresh = page == 0))
                 .collect { response ->
                     beersListUiState.value = when (response) {
                         is StoreReadResponse.Loading ->
@@ -59,7 +61,7 @@ class BeersListViewModel(
     fun loadMore() {
         val nextPage = beersListUiState.value.page + 1
 
-        Timber.i("Load next page #$nextPage")
+        Timber.i("Loading beers list next page: $nextPage")
 
         if (beersListUiState.value.endReached.not()) {
             beersListUiState.value.copy(
@@ -76,7 +78,7 @@ class BeersListViewModel(
     }
 
     fun refresh() {
-        Timber.i("Refresh beers list")
+        Timber.i("Refreshing beers list")
 
         beersListUiState.value.copy(
             state = UiState.Refreshing,

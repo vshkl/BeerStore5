@@ -1,14 +1,12 @@
 package com.vshkl.beerstore5.feature.beerdetails
 
-import kotlinx.datetime.LocalDate
-
 data class BeerDetails(
     val id: Int,
     val name: String,
     val tagline: String = "",
     val description: String = "",
     val imageUrl: String = "",
-    val firstBrewed: LocalDate,
+    val firstBrewed: String,
     val abv: Double = 0.0,
     val ibu: Double = 0.0,
     val ebc: Double = 0.0,

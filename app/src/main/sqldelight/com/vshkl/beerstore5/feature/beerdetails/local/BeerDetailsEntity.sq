@@ -1,14 +1,13 @@
 import kotlin.String;
 import kotlin.collections.List;
-import kotlinx.datetime.LocalDate;
 
 CREATE TABLE beerDetailsEntity (
     id INTEGER PRIMARY KEY NOT NULL,
     name TEXT NOT NULL,
     tagline TEXT,
     description TEXT,
-    firstBrewed TEXT AS LocalDate NOT NULL,
     imageUrl TEXT,
+    firstBrewed TEXT,
     abv REAL,
     ibu REAL,
     ebc REAL,
@@ -21,7 +20,7 @@ CREATE TABLE beerDetailsEntity (
 
 insert:
 INSERT OR REPLACE
-INTO beerDetailsEntity (id, name, tagline, description, firstBrewed, imageUrl, abv, ibu, ebc, srm, ph, attenuationLevel, foodPairing, brewersTips)
+INTO beerDetailsEntity (id, name, tagline, description, imageUrl, firstBrewed, abv, ibu, ebc, srm, ph, attenuationLevel, foodPairing, brewersTips)
 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 selectById:

@@ -5,7 +5,7 @@ import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import com.vshkl.beerstore5.feature.beers.BeersStoreProvider
 import com.vshkl.beerstore5.feature.beers.local.BeersDaoImpl
 import com.vshkl.beerstore5.feature.beers.presentation.BeersListViewModel
-import com.vshkl.beerstore5.feature.beers.remote.BeersServiceImpl
+import com.vshkl.beerstore5.feature.core.remote.BeersServiceImpl
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation

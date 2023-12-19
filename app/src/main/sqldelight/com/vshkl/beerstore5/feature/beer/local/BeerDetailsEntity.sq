@@ -31,8 +31,7 @@ WHERE id = ?;
 
 deleteAll:
 DELETE
-FROM beerDetailsEntity
-WHERE id = ?;
+FROM beerDetailsEntity;
 
 deleteById:
 DELETE

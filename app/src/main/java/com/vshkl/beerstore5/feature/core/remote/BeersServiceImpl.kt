@@ -1,5 +1,6 @@
 package com.vshkl.beerstore5.feature.core.remote
 
+import com.vshkl.beerstore5.feature.beerdetails.remote.BeerDetailsDto
 import com.vshkl.beerstore5.feature.beers.remote.BeerDto
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -17,7 +18,7 @@ class BeersServiceImpl(
             .body<List<BeerDto>>()
     }
 
-    override suspend fun getBeer(id: Int): BeerDto {
+    override suspend fun getBeerDetails(id: Int): BeerDetailsDto {
         return client
             .get(BeersResource(id))
             .body()

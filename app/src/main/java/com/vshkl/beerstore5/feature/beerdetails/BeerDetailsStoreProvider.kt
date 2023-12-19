@@ -20,6 +20,7 @@ class BeerDetailsStoreProvider(
                 fetcher = Fetcher.of { id: Int ->
                     beersService
                         .getBeerDetails(id = id)
+                        .first()
                         .asBeerDetails()
                 },
                 sourceOfTruth = SourceOfTruth.Companion.of(

@@ -7,5 +7,5 @@ interface BeersService {
 
     suspend fun getBeers(page: Int, perPage: Int): List<BeerDto>
 
-    suspend fun getBeerDetails(id: Int): BeerDetailsDto
+    suspend fun getBeerDetails(id: Int): List<BeerDetailsDto>
 }

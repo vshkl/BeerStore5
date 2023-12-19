@@ -18,9 +18,9 @@ class BeersServiceImpl(
             .body<List<BeerDto>>()
     }
 
-    override suspend fun getBeerDetails(id: Int): BeerDetailsDto {
+    override suspend fun getBeerDetails(id: Int): List<BeerDetailsDto> {
         return client
-            .get(BeersResource(id))
+            .get(BeersResource.Id(id = id))
             .body()
     }
 }

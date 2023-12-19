@@ -15,6 +15,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.vshkl.beerstore5.R
+import com.vshkl.beerstore5.feature.destinations.BeerDetailsScreenDestination
 import com.vshkl.beerstore5.util.viewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -40,7 +41,14 @@ fun BeersListScreen(
     ) { innerPadding ->
         BeersListScreenContent(
             beersListUiState = viewModel.beersListUiState.collectAsState().value,
-            onBeerClick = { beer -> println(beer) },
+            onBeerClick = { beer ->
+                navigator.navigate(
+                    BeerDetailsScreenDestination(
+                        id = beer.id,
+                        name = beer.name
+                    )
+                )
+            },
             onLoadMore = { viewModel.loadMore() },
             onRefresh = { viewModel.refresh() },
             modifier = Modifier

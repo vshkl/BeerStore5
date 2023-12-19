@@ -35,7 +35,7 @@ fun BeersListScreen(
                 ),
                 title = {
                     Text(stringResource(id = R.string.title_beers_list))
-                }
+                },
             )
         },
     ) { innerPadding ->

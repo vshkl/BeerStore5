@@ -1,6 +1,10 @@
 package com.vshkl.beerstore5.feature.beerdetails.presentation
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -8,13 +12,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.vshkl.beerstore5.feature.beerdetails.BeerDetails
 import com.vshkl.beerstore5.feature.core.presentation.UiState
-import com.vshkl.beerstore5.ui.composable.BeerDetailsList
+import com.vshkl.beerstore5.ui.composable.BeerParameters
+import com.vshkl.beerstore5.ui.composable.FoodPairingInfo
+import com.vshkl.beerstore5.ui.composable.Image
 
 @Composable
 fun BeerDetailsScreenContent(
@@ -27,11 +36,85 @@ fun BeerDetailsScreenContent(
     ) {
         Box {
             beerDetailsUiState.beerDetails?.let { beerDetails ->
-                BeerDetailsList(
-                    beerDetails = beerDetails,
-                    modifier = Modifier
-                        .padding(16.dp),
-                )
+                Column {
+                    Text(
+                        text = beerDetails.tagline,
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.padding(16.dp),
+                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .background(
+                                    MaterialTheme.colorScheme.secondaryContainer,
+                                    MaterialTheme.shapes.medium,
+                                )
+                                .border(
+                                    width = Dp.Hairline,
+                                    color = MaterialTheme.colorScheme.secondary,
+                                    shape = MaterialTheme.shapes.medium,
+                                )
+                                .padding(8.dp),
+                        ) {
+                            Image(
+                                imageUrl = beerDetails.imageUrl,
+                                height = 160.dp,
+                            )
+                        }
+                        BeerParameters(
+                            abv = beerDetails.abv,
+                            ibu = beerDetails.ibu,
+                            ebc = beerDetails.ebc,
+                            srm = beerDetails.srm,
+                            ph = beerDetails.ph,
+                            attenuationLevel = beerDetails.attenuationLevel,
+                            modifier = Modifier.padding(start = 16.dp),
+                        )
+                    }
+                    Text(
+                        text = beerDetails.description,
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
+                    )
+                    Text(
+                        text = "First brewed at ${beerDetails.firstBrewed}",
+                        style = MaterialTheme.typography.labelSmall,
+                        modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
+                    )
+                    beerDetails.foodPairing
+                        .takeIf(List<String>::isNotEmpty)
+                        ?.let { foodPairing ->
+                            FoodPairingInfo(
+                                foodPairing = foodPairing,
+                                modifier = Modifier.padding(
+                                    start = 16.dp,
+                                    end = 16.dp,
+                                    bottom = 16.dp,
+                                ),
+                            )
+                        }
+                    Text(
+                        text = "Brewing tips",
+                        style = MaterialTheme.typography.labelLarge,
+                        modifier = Modifier.padding(
+                            start = 16.dp,
+                            end = 16.dp,
+                            bottom = 8.dp,
+                        ),
+                    )
+                    Text(
+                        text = beerDetails.brewersTips,
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(
+                            start = 16.dp,
+                            end = 16.dp,
+                            bottom = 16.dp,
+                        ),
+                    )
+                }
             }
 
             if (beerDetailsUiState.state is UiState.Loading ||

@@ -10,7 +10,7 @@ data class BeerDetailsDto(
     val name: String,
     val tagline: String = "",
     val description: String = "",
-    val imageUrl: String = "",
+    @SerialName("image_url") val imageUrl: String = "",
     @SerialName("first_brewed") val firstBrewed: String,
     val abv: Double = 0.0,
     val ibu: Double = 0.0,

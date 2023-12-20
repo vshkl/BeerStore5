@@ -1,6 +1,5 @@
 package com.vshkl.beerstore5.ui.composable
 
-import androidx.compose.animation.core.VisibilityThreshold
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -42,13 +41,13 @@ fun BeersListCell(
                     MaterialTheme.shapes.medium,
                 )
                 .border(
-                    width = Dp.VisibilityThreshold,
+                    width = Dp.Hairline,
                     color = MaterialTheme.colorScheme.secondary,
                     shape = MaterialTheme.shapes.medium,
                 )
                 .padding(4.dp),
         ) {
-            ImageThumbnail(imageUrl = beer.imageUrl)
+            Image(imageUrl = beer.imageUrl)
         }
         Column(
             horizontalAlignment = Alignment.Start,

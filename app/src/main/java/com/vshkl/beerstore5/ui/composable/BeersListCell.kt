@@ -2,7 +2,6 @@ package com.vshkl.beerstore5.ui.composable
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.vshkl.beerstore5.feature.beers.Beer
+import com.vshkl.beerstore5.ui.modifier.debouncedClickable
 
 @Composable
 fun BeersListCell(
@@ -30,7 +30,7 @@ fun BeersListCell(
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.Start,
         modifier = modifier
-            .clickable { onClick(beer) }
+            .debouncedClickable(delay = 450L) { onClick(beer) }
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .fillMaxWidth(),
     ) {

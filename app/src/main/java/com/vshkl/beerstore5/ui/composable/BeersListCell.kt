@@ -70,7 +70,8 @@ fun BeersListCell(
         }
         Text(
             text = "#${beer.id}",
-            style = MaterialTheme.typography.labelMedium,
+            style = MaterialTheme.typography.labelSmall,
+            modifier = Modifier.padding(top = 2.dp),
         )
     }
 }

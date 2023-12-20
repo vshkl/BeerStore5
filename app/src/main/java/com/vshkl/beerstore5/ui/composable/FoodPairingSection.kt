@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEachIndexed
 
 @Composable
-fun FoodPairingInfo(
+fun FoodPairingSection(
     foodPairing: List<String>,
     modifier: Modifier = Modifier,
 ) {
@@ -35,7 +35,7 @@ fun FoodPairingInfo(
 @Preview
 @Composable
 fun FoodPairingInfoPreview() {
-    FoodPairingInfo(
+    FoodPairingSection(
         foodPairing = listOf(
             "Spicy carne asada with a pico de gallo sauce",
             "Shredded chicken tacos with a mango chilli lime salsa",

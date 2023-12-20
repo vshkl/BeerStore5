@@ -20,7 +20,6 @@ import com.vshkl.beerstore5.ui.composable.BeerDetailsList
 fun BeerDetailsScreenContent(
     beerDetailsUiState: BeerDetailsUiState,
     modifier: Modifier = Modifier,
-    onRefresh: () -> Unit = {},
 ) {
     Surface(
         color = MaterialTheme.colorScheme.background,

@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.vshkl.beerstore5.feature.beerdetails.presentation
 
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -15,10 +13,11 @@ import org.mobilenativefoundation.store.store5.ExperimentalStoreApi
 import org.mobilenativefoundation.store.store5.Store
 import org.mobilenativefoundation.store.store5.StoreReadRequest
 import org.mobilenativefoundation.store.store5.StoreReadResponse
+import org.mobilenativefoundation.store.store5.impl.extensions.fresh
 import org.mobilenativefoundation.store.store5.impl.extensions.get
 import timber.log.Timber
 
-@OptIn(ExperimentalStoreApi::class)
+@OptIn(ExperimentalStoreApi::class, ExperimentalMaterial3Api::class)
 class BeerDetailsViewModel(
     private val savedStateHandle: SavedStateHandle,
     private val beerDetailsStore: Store<Int, BeerDetails>,
@@ -28,13 +27,13 @@ class BeerDetailsViewModel(
         MutableStateFlow(BeerDetailsUiState())
         private set
 
+    private val currentId = BeerDetailsScreenDestination.argsFrom(savedStateHandle).id
+
     init {
         viewModelScope.launch {
-            val id = BeerDetailsScreenDestination.argsFrom(savedStateHandle).id
+            Timber.i("Loading beer details with id: $currentId")
 
-            Timber.i("Loading beer details with id: $id")
-
-            beerDetailsStore.stream(StoreReadRequest.cached(key = id, refresh = true))
+            beerDetailsStore.stream(StoreReadRequest.cached(key = currentId, refresh = true))
                 .collect { response ->
                     beerDetailsUiState.value = when (response) {
                         is StoreReadResponse.Loading ->
@@ -63,7 +62,7 @@ class BeerDetailsViewModel(
     }
 
     fun refresh() {
-        Timber.i("Refreshing beer details")
+        Timber.i("Refreshing beer details with id $currentId")
 
         beerDetailsUiState.value.copy(
             state = UiState.Refreshing,
@@ -71,8 +70,7 @@ class BeerDetailsViewModel(
         ).run {
             beerDetailsUiState.value = this
             viewModelScope.launch {
-                beerDetailsStore.clear()
-                beerDetailsStore.get(0)
+                beerDetailsStore.fresh(currentId)
             }
         }
     }

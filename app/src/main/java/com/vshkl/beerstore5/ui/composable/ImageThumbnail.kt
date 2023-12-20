@@ -1,7 +1,7 @@
 package com.vshkl.beerstore5.ui.composable
 
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.BrokenImage
 import androidx.compose.material.icons.twotone.Image
@@ -12,6 +12,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.palette.graphics.Palette
 import coil.compose.AsyncImage
 import com.vshkl.beerstore5.R
 
@@ -31,8 +32,8 @@ fun ImageThumbnail(
         error = errorPainter,
         fallback = fallbackPainter,
         modifier = modifier
-            .size(size = 64.dp)
-            .aspectRatio(1F),
+            .height(80.dp)
+            .aspectRatio(ratio = 0.75F, matchHeightConstraintsFirst = true),
     )
 }
 

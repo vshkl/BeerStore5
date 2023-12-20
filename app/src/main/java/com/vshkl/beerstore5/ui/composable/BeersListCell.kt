@@ -1,5 +1,6 @@
 package com.vshkl.beerstore5.ui.composable
 
+import androidx.compose.animation.core.VisibilityThreshold
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -16,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.vshkl.beerstore5.feature.beers.Beer
 
@@ -39,8 +41,12 @@ fun BeersListCell(
                     MaterialTheme.colorScheme.secondaryContainer,
                     MaterialTheme.shapes.medium,
                 )
-                .border(1.dp, MaterialTheme.colorScheme.secondary, MaterialTheme.shapes.medium)
-                .padding(4.dp)
+                .border(
+                    width = Dp.VisibilityThreshold,
+                    color = MaterialTheme.colorScheme.secondary,
+                    shape = MaterialTheme.shapes.medium,
+                )
+                .padding(4.dp),
         ) {
             ImageThumbnail(imageUrl = beer.imageUrl)
         }
@@ -49,12 +55,12 @@ fun BeersListCell(
             verticalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
                 .weight(1F)
-                .padding(horizontal = 8.dp),
+                .padding(start = 16.dp, end = 4.dp),
         ) {
             Text(
                 text = beer.name,
                 style = MaterialTheme.typography.titleLarge,
-                maxLines = 1,
+                maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
             )
             Text(

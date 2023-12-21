@@ -1,4 +1,4 @@
-package com.vshkl.beerstore5.feature.beers.presentation
+package com.vshkl.beerstore5.feature.beerslist.presentation
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.vshkl.beerstore5.feature.beers.Beer
+import com.vshkl.beerstore5.feature.beerslist.Beer
 import com.vshkl.beerstore5.feature.core.presentation.UiState
 import com.vshkl.beerstore5.ui.composable.BeersList
 

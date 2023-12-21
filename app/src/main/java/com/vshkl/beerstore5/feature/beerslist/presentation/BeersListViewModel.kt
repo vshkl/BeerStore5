@@ -1,8 +1,8 @@
-package com.vshkl.beerstore5.feature.beers.presentation
+package com.vshkl.beerstore5.feature.beerslist.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vshkl.beerstore5.feature.beers.Beer
+import com.vshkl.beerstore5.feature.beerslist.Beer
 import com.vshkl.beerstore5.feature.core.presentation.UiState
 import com.vshkl.beerstore5.feature.core.remote.BeersService
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -1,6 +1,6 @@
-package com.vshkl.beerstore5.feature.beers.remote
+package com.vshkl.beerstore5.feature.beerslist.remote
 
-import com.vshkl.beerstore5.feature.beers.Beer
+import com.vshkl.beerstore5.feature.beerslist.Beer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

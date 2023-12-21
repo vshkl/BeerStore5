@@ -1,6 +1,6 @@
-package com.vshkl.beerstore5.feature.beers.presentation
+package com.vshkl.beerstore5.feature.beerslist.presentation
 
-import com.vshkl.beerstore5.feature.beers.Beer
+import com.vshkl.beerstore5.feature.beerslist.Beer
 import com.vshkl.beerstore5.feature.core.presentation.UiState
 
 data class BeersListUiState(

@@ -1,4 +1,4 @@
-package com.vshkl.beerstore5.feature.beers.presentation
+package com.vshkl.beerstore5.feature.beerslist.presentation
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api

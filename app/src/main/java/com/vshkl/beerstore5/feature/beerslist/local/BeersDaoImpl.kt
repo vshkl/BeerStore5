@@ -1,8 +1,8 @@
-package com.vshkl.beerstore5.feature.beers.local
+package com.vshkl.beerstore5.feature.beerslist.local
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
-import com.vshkl.beerstore5.feature.beers.Beer
+import com.vshkl.beerstore5.feature.beerslist.Beer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.mapNotNull

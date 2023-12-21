@@ -1,7 +1,7 @@
 package com.vshkl.beerstore5.feature.core.remote
 
 import com.vshkl.beerstore5.feature.beerdetails.remote.BeerDetailsDto
-import com.vshkl.beerstore5.feature.beers.remote.BeerDto
+import com.vshkl.beerstore5.feature.beerslist.remote.BeerDto
 
 interface BeersService {
 

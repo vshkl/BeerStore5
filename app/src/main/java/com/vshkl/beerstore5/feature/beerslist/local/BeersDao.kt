@@ -1,6 +1,6 @@
-package com.vshkl.beerstore5.feature.beers.local
+package com.vshkl.beerstore5.feature.beerslist.local
 
-import com.vshkl.beerstore5.feature.beers.Beer
+import com.vshkl.beerstore5.feature.beerslist.Beer
 import kotlinx.coroutines.flow.Flow
 
 interface BeersDao {

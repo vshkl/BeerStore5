@@ -7,9 +7,9 @@ import com.vshkl.beerstore5.feature.beerdetails.BeerDetailsStoreProvider
 import com.vshkl.beerstore5.feature.beerdetails.local.BeerDetailsDaoImpl
 import com.vshkl.beerstore5.feature.beerdetails.local.BeerDetailsEntity
 import com.vshkl.beerstore5.feature.beerdetails.presentation.BeerDetailsViewModel
-import com.vshkl.beerstore5.feature.beers.BeersStoreProvider
-import com.vshkl.beerstore5.feature.beers.local.BeersDaoImpl
-import com.vshkl.beerstore5.feature.beers.presentation.BeersListViewModel
+import com.vshkl.beerstore5.feature.beerslist.BeersStoreProvider
+import com.vshkl.beerstore5.feature.beerslist.local.BeersDaoImpl
+import com.vshkl.beerstore5.feature.beerslist.presentation.BeersListViewModel
 import com.vshkl.beerstore5.feature.core.remote.BeersServiceImpl
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.DefaultRequest

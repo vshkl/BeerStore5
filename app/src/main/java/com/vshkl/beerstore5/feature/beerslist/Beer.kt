@@ -1,4 +1,4 @@
-package com.vshkl.beerstore5.feature.beers
+package com.vshkl.beerstore5.feature.beerslist
 
 data class Beer(
     val id: Int,

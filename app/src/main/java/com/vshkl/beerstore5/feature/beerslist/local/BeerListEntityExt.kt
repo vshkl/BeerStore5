@@ -1,6 +1,6 @@
-package com.vshkl.beerstore5.feature.beers.local
+package com.vshkl.beerstore5.feature.beerslist.local
 
-import com.vshkl.beerstore5.feature.beers.Beer
+import com.vshkl.beerstore5.feature.beerslist.Beer
 
 fun BeerListEntity.asBeer() = Beer(
     id = id.toInt(),

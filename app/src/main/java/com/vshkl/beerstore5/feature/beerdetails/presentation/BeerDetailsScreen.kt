@@ -1,5 +1,9 @@
 package com.vshkl.beerstore5.feature.beerdetails.presentation
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.MarqueeAnimationMode
+import androidx.compose.foundation.basicMarquee
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -15,12 +19,15 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.vshkl.beerstore5.ui.modifier.edgeGradientOverlay
 import com.vshkl.beerstore5.util.viewModel
 
+@OptIn(ExperimentalFoundationApi::class)
 @ExperimentalMaterial3Api
 @Destination(navArgsDelegate = BeerDetailsScreenNavArgs::class)
 @Composable
@@ -41,11 +48,28 @@ fun BeerDetailsScreen(
                     navigationIconContentColor = MaterialTheme.colorScheme.primary,
                 ),
                 title = {
-                    Text(
-                        text = navArgs.name,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                    )
+                    Box(
+                        modifier = Modifier
+                            .edgeGradientOverlay(
+                                width = 16.dp,
+                                colors = listOf(
+                                    MaterialTheme.colorScheme.primaryContainer,
+                                    Color.Transparent,
+                                ),
+                            )
+                    ) {
+                        Text(
+                            text = navArgs.name,
+                            maxLines = 1,
+                            modifier = Modifier
+                                .basicMarquee(
+                                    iterations = Int.MAX_VALUE,
+                                    animationMode = MarqueeAnimationMode.Immediately,
+                                    velocity = 45.dp,
+                                )
+                                .padding(horizontal = 12.dp),
+                        )
+                    }
                 },
                 navigationIcon = {
                     IconButton(onClick = { navigator.navigateUp() }) {

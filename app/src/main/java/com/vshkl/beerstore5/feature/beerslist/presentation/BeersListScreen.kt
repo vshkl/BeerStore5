@@ -30,8 +30,8 @@ fun BeersListScreen(
         topBar = {
             CenterAlignedTopAppBar(
                 colors = topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background,
-                    titleContentColor = MaterialTheme.colorScheme.onBackground,
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    titleContentColor = MaterialTheme.colorScheme.primary,
                 ),
                 title = {
                     Text(stringResource(id = R.string.title_beers_list))

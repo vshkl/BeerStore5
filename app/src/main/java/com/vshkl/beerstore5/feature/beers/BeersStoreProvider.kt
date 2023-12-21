@@ -1,10 +1,10 @@
 package com.vshkl.beerstore5.feature.beers
 
-import com.vshkl.beerstore5.feature.core.StoreProvider
 import com.vshkl.beerstore5.feature.beers.local.BeersDao
 import com.vshkl.beerstore5.feature.beers.remote.BeerDto
-import com.vshkl.beerstore5.feature.core.remote.BeersService
 import com.vshkl.beerstore5.feature.beers.remote.asBeer
+import com.vshkl.beerstore5.feature.core.StoreProvider
+import com.vshkl.beerstore5.feature.core.remote.BeersService
 import org.mobilenativefoundation.store.store5.Fetcher
 import org.mobilenativefoundation.store.store5.SourceOfTruth
 import org.mobilenativefoundation.store.store5.Store
@@ -20,7 +20,7 @@ class BeersStoreProvider(
             .from(
                 fetcher = Fetcher.of { page: Int ->
                     beersService
-                        .getBeers(page = page, perPage = 40)
+                        .getBeers(page = page, perPage = BeersService.pageSize)
                         .map(BeerDto::asBeer)
                 },
                 sourceOfTruth = SourceOfTruth.of(

@@ -5,6 +5,10 @@ import com.vshkl.beerstore5.feature.beers.remote.BeerDto
 
 interface BeersService {
 
+    companion object {
+        const val pageSize = 40
+    }
+
     suspend fun getBeers(page: Int, perPage: Int): List<BeerDto>
 
     suspend fun getBeerDetails(id: Int): List<BeerDetailsDto>

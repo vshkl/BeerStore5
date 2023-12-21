@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vshkl.beerstore5.feature.beers.Beer
 import com.vshkl.beerstore5.feature.core.presentation.UiState
+import com.vshkl.beerstore5.feature.core.remote.BeersService
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.mobilenativefoundation.store.store5.ExperimentalStoreApi
@@ -59,7 +60,8 @@ class BeersListViewModel(
     }
 
     fun loadMore() {
-        val nextPage = beersListUiState.value.page + 1
+        val pageSize = BeersService.pageSize
+        val nextPage = beersListUiState.value.beers.size / pageSize + 1
 
         Timber.i("Loading beers list next page: $nextPage")
 

@@ -13,10 +13,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.vshkl.beerstore5.R
 import com.vshkl.beerstore5.feature.beers.Beer
 import com.vshkl.beerstore5.ui.modifier.debouncedClickable
 
@@ -68,7 +70,7 @@ fun BeersListCell(
             )
         }
         Text(
-            text = "#${beer.id}",
+            text = stringResource(id = R.string.label_number, beer.id),
             style = MaterialTheme.typography.labelSmall,
             modifier = Modifier.padding(top = 2.dp),
         )

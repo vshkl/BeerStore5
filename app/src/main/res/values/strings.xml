@@ -1,7 +1,20 @@
 <resources>
+
     <string name="app_name">Beer Store 5</string>
 
     <string name="cd_beer_image">Beer image</string>
 
     <string name="title_beers_list">All beers</string>
+
+    <string name="label_brewing_tips">Brewing tips</string>
+    <string name="label_first_breweerd_at">First brewed at %s</string>
+    <string name="label_abv">ABV</string>
+    <string name="label_ibu">IBU</string>
+    <string name="label_ebc">EBC</string>
+    <string name="label_srm">SRM</string>
+    <string name="label_ph">PH</string>
+    <string name="label_attenuation_level">Attenuation level</string>
+    <string name="label_number">#%s</string>
+    <string name="label_food_pairing">Food pairing</string>
+
 </resources>

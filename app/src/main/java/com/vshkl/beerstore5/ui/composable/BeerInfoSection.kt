@@ -11,9 +11,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.vshkl.beerstore5.R
 import com.vshkl.beerstore5.feature.beerdetails.BeerDetails
 
 @Composable
@@ -65,7 +67,7 @@ fun BeerInfoSection(
             modifier = Modifier.padding(bottom = 16.dp),
         )
         Text(
-            text = "First brewed at ${beerDetails.firstBrewed}",
+            text = stringResource(id = R.string.label_first_breweerd_at, beerDetails.firstBrewed),
             style = MaterialTheme.typography.labelSmall,
         )
     }
@@ -80,10 +82,10 @@ fun BeerInfoSectionPreview() {
             name = "Punk IPA 2007 - 2010",
             tagline = "Post Modern Classic. Spiky. Tropical. Hoppy.",
             description = "Our flagship beer that kick started the craft beer revolution. This " +
-                    "is James and Martin's original take on an American IPA, subverted with " +
-                    "punchy New Zealand hops. Layered with new world hops to create an all-out " +
-                    "riot of grapefruit, pineapple and lychee before a spiky, mouth-puckering " +
-                    "bitter finish.",
+                "is James and Martin's original take on an American IPA, subverted with " +
+                "punchy New Zealand hops. Layered with new world hops to create an all-out " +
+                "riot of grapefruit, pineapple and lychee before a spiky, mouth-puckering " +
+                "bitter finish.",
             imageUrl = "https://images.punkapi.com/v2/192.png",
             firstBrewed = "04/2007",
             abv = 6.0,
@@ -98,8 +100,8 @@ fun BeerInfoSectionPreview() {
                 "Cheesecake with a passion fruit swirl sauce",
             ),
             brewersTips = "While it may surprise you, this version of Punk IPA isn't dry hopped " +
-                    "but still packs a punch! To make the best of the aroma hops make sure they " +
-                    "are fully submerged and add them just before knock out for an intense hop hit.",
+                "but still packs a punch! To make the best of the aroma hops make sure they " +
+                "are fully submerged and add them just before knock out for an intense hop hit.",
         ),
     )
 }

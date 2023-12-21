@@ -15,6 +15,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.style.TextOverflow
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -28,6 +29,8 @@ fun BeerDetailsScreen(
     navigator: DestinationsNavigator,
     viewModel: BeerDetailsViewModel = viewModel(),
 ) {
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -60,8 +63,10 @@ fun BeerDetailsScreen(
                         )
                     }
                 },
+                scrollBehavior = scrollBehavior,
             )
         },
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
     ) { innerPadding ->
         BeerDetailsScreenContent(
             beerDetailsUiState = viewModel.beerDetailsUiState.collectAsState().value,
